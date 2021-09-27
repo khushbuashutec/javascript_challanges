@@ -141,3 +141,8 @@ const calcAverage=function(arr){
 
 
 console.log(`average is: ${calcAverage(total)}`);
+
+
+// //***********extra challange ********** */
+
+
