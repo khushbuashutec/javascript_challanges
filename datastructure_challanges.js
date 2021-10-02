@@ -120,3 +120,22 @@ for (const [min, event] of gameEvents) {
     const half = min <= 45 ? 'first' : 'second';
     console.log(`[${half} half] ${min} : ${event}`);
 }
+//challange 4
+document.body.append(document.createElement('textarea'));
+document.body.append(document.createElement('button'));
+
+document.querySelector('button').addEventListener('click', function () {
+    const text = document.querySelector('textarea').value;
+
+    const entry = text.split('\n');
+    let newEntries = [];
+    for (const [i,e] of entry.entries()) {
+        const [first, second] = e.toLowerCase().trim().split('_');
+        const output = `${first}${second.replace(second[0], second[0].toUpperCase())}`;
+
+        console.log(`${output.padEnd(20)}${'✅'.repeat(i+1)}`);
+
+    }
+
+
+});
