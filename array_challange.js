@@ -41,47 +41,65 @@
 
 //challenge 4
 
-const dogs = [
-    { weight: 22, curFood: 250, owners: ['Alice', 'Bob'] },
-    { weight: 8, curFood: 200, owners: ['Matilda'] },
-    { weight: 13, curFood: 275, owners: ['Sarah', 'John'] },
-    { weight: 32, curFood: 340, owners: ['Michael'] }
-];
-//1.
-dogs.forEach((dog) => dog.recommendedFood = Math.trunc(dog.weight ** 0.75 * 28));
-console.log(dogs);
-//2.
-const sarahDogs = dogs.find(dog => dog.owners.includes('Sarah'))
-console.log(sarahDogs);
-console.log(`Sarah dog is eating Too ${sarahDogs.curFood > sarahDogs.recommendedFood ? 'much' : 'little'}`);
+// const dogs = [
+//     { weight: 22, curFood: 250, owners: ['Alice', 'Bob'] },
+//     { weight: 8, curFood: 200, owners: ['Matilda'] },
+//     { weight: 13, curFood: 275, owners: ['Sarah', 'John'] },
+//     { weight: 32, curFood: 340, owners: ['Michael'] }
+// ];
+// //1.
+// dogs.forEach((dog) => dog.recommendedFood = Math.trunc(dog.weight ** 0.75 * 28));
+// console.log(dogs);
+// //2.
+// const sarahDogs = dogs.find(dog => dog.owners.includes('Sarah'))
+// console.log(sarahDogs);
+// console.log(`Sarah dog is eating Too ${sarahDogs.curFood > sarahDogs.recommendedFood ? 'much' : 'little'}`);
 
-//3.
-const ownersEatTooMuch = dogs
-    .filter(dog => dog.curFood > dog.recommendedFood)
-    .flatMap(dog => dog.owners);
-console.log(ownersEatTooMuch);
+// //3.
+// const ownersEatTooMuch = dogs
+//     .filter(dog => dog.curFood > dog.recommendedFood)
+//     .flatMap(dog => dog.owners);
+// console.log(ownersEatTooMuch);
 
-const ownersEatTooLittle = dogs
-    .filter(dog => dog.curFood < dog.recommendedFood)
-    .flatMap(dog => dog.owners);
-console.log(ownersEatTooLittle);
-//4.
+// const ownersEatTooLittle = dogs
+//     .filter(dog => dog.curFood < dog.recommendedFood)
+//     .flatMap(dog => dog.owners);
+// console.log(ownersEatTooLittle);
+// //4.
 
-console.log(`${ownersEatTooMuch.join(' and ')}'s dog eat too much`);
-console.log(`${ownersEatTooLittle.join(' and ')}'s dog eat too Little`);
+// console.log(`${ownersEatTooMuch.join(' and ')}'s dog eat too much`);
+// console.log(`${ownersEatTooLittle.join(' and ')}'s dog eat too Little`);
 
-//5.
-console.log(dogs.some(dog => dog.curFood === dog.recommendedFood));
+// //5.
+// console.log(dogs.some(dog => dog.curFood === dog.recommendedFood));
 
-//6.
-const checkEating = dog => dog.curFood > dog.recommendedFood * 0.9 &&
-    dog.curFood < dog.recommendedFood * 1.1;
-console.log(dogs.some(checkEating));
+// //6.
+// const checkEating = dog => dog.curFood > dog.recommendedFood * 0.9 &&
+//     dog.curFood < dog.recommendedFood * 1.1;
+// console.log(dogs.some(checkEating));
 
-//7.
-console.log(dogs.filter(checkEating));
+// //7.
+// console.log(dogs.filter(checkEating));
 
-//8.
-const dogSorted = dogs.slice().sort((a, b) =>
-    a.recommendedFood - b.recommendedFood);
-console.log(dogSorted);
+// //8.
+// const dogSorted = dogs.slice().sort((a, b) =>
+//     a.recommendedFood - b.recommendedFood);
+// console.log(dogSorted);
+
+
+//new challenge 
+
+const data = {
+    asks: [[4380000, 90639100, 1633496604012],
+    [4390000, 1990000, 1633496604012],
+    [4390053, 226900, 1633496604012],
+    [4390060, 39000, 1633496604012],
+    [4390067, 251100, 1633496604012]],
+    bids: [[3700091, 984000, 1633496604012],
+    [3700084, 10765600, 1633496604012],
+    [3700077, 257000, 1633496604012],
+    [3700070, 8917400, 1633496604012],
+    [3700063, 41373000, 1633496604012]]
+}
+
+
