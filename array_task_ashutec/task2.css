@@ -1,0 +1,20 @@
+*{
+    margin: 0;
+    padding:0;
+}
+
+.main{
+    background-color: rgb(208, 208, 241);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   gap: 2rem;
+height: 50%;
+width: 50%;
+margin: 0 auto;
+}
+.btn_open , .btn_filled , .btn_cancel{
+    border-radius: 20px;
+    padding: 15px 30px;
+    border:none;
+}

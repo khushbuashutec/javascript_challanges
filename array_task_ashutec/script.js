@@ -83,6 +83,7 @@ const foodItem1 = document.getElementById("item1");
 const foodItem2 = document.getElementById("item2");
 const foodItem3 = document.getElementById("item3");
 const button = document.querySelector('.submit');
+// console.log(document.querySelector(".btn_open"))
 
 //1.
 const breakfastItem = foodItems.filter(val => val.foodType === 0);
