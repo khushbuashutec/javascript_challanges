@@ -4499,22 +4499,31 @@ btnOpen.addEventListener('click', function (e) {
                 val.execType !== 'C' &&
                 val.ordType !== '1'))
     )
-    // console.log(open);
+    console.log(open);
     console.log(modify(open));
 
 });
 btnFilled.addEventListener('click', function () {
-    const filled = information.filter(order => order.execType &&
-        order.ordStatus &&
-        order.ordType &&
-        (order.execType !== "4" &&
-            order.execType !== "8" &&
-            order.execType !== "5") &&
-        order.ordStatus !== "8" &&
-        order.ordType === "1")
+    // const filled = information.filter(order => order.execType &&
+    //     order.ordStatus &&
+    //     order.ordType &&
+    //     (order.execType !== "4" &&
+    //         order.execType !== "8" &&
+    //         order.execType !== "5") &&
+    //     order.ordStatus !== "8" &&
+    //     order.ordType === "1")
+
+
+    const fillButton = information.filter(data => data.execType &&
+        data.ordStatus &&
+        data.ordType &&
+        (data.execType !== '4'
+            && data.execType !== '8'
+            && data.execType !== '5')
+        && data.ordStatus !== '8' && data.ordType === '1')
 
     // console.log(filled);
-    console.log(modify(filled));
+    console.log(modify(fillButton));
 })
 
 btnCancel.addEventListener('click', function () {
