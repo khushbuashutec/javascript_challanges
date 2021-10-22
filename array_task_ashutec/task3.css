@@ -17,7 +17,7 @@ form{
     gap:10px;
    padding-top: 2rem;
 }
-input, button{
+input, button,select{
     height: 30px;
     border-radius: 5px;
     border:2px solid darkgrey;
@@ -69,4 +69,8 @@ td{
 }
 .hidden{
     visibility: hidden;
+}
+.manage_btns{
+    display: flex;
+    gap:2rem;
 }

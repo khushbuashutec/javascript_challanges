@@ -100,22 +100,29 @@ const newId = document.getElementById('newId')
 const newProduct = document.getElementById('newName');
 const newPrice = document.getElementById('newPrice');
 const add = document.querySelector('.add');
+const table = document.querySelectorAll('.table');
 
 let cart = [];
 row.innerHTML = '';
 
 const updateUI = function (product) {
-    const html = ` <tr>
+    const html = ` <tr id="${product.id}">
         <th scope="row">${product.id}</th>
         <td>${product.product_name}</td>
         <td>${product.price}</td>
         <td>${product.available === 0 ? 'Not-Available' : 'Available'}</td>
-        <td><image class="all_images" src=${product.image}></image></image></td>
-        </tr>`
+        <td><image class="all_images" src=${product.image}></image></td> 
+        <td><button class="update">Update</button></td>
+        <td><button class="delete">Delete</button></td></tr>`
+
     row.insertAdjacentHTML('beforeend', html);
 
 
 }
+
+
+
+
 
 addCart.addEventListener('click', function (e) {
     e.preventDefault();
@@ -130,20 +137,24 @@ addCart.addEventListener('click', function (e) {
     } else if (available) {
         // const add = available.
         cart.push(available);
-
         updateUI(available);
+
+
     }
     cartInput.value = '';
     console.log(cart);
 });
 
 
-btn_delete.addEventListener('click', function (e) {
+
+table.addEventListener('click', function (e) {
     e.preventDefault();
-    row.innerHTML = '';
-    const exist = cart.some(val => val.id === Number(delInput.value))
+    // row.innerHTML = '';
+    target = e.Target.value;
+    console.log(target);
+    const exist = cart.some(val => val.id === target)
     if (exist) {
-        const index = cart.findIndex(val => val.id === Number(delInput.value))
+        const index = cart.findIndex(val => val.id === target)
         let remove = cart.splice(index, 1);
 
         console.log(remove, cart);
@@ -151,12 +162,12 @@ btn_delete.addEventListener('click', function (e) {
 
 
     }
-    else {
-        btn_delete.insertAdjacentHTML('afterend', '<p class="err">you does not choose this product yet! </p>');
+    // else {
+    //     btn_delete.insertAdjacentHTML('afterend', '<p class="err">you does not choose this product yet! </p>');
 
-        cart.forEach(val => updateUI(val));
-    }
-    delInput.value = '';
+    //     cart.forEach(val => updateUI(val));
+    // }
+    // delInput.value = '';
 })
 getDiscount.addEventListener('click', function (e) {
     e.preventDefault();
@@ -180,43 +191,72 @@ getDiscount.addEventListener('click', function (e) {
 })
 
 
+// btn_update.addEventListener('click', function (e) {
+//     e.preventDefault();
+//     if (id.value === '') {
+//         btn_update.insertAdjacentHTML('afterend', '<p class="err">!Enter Id</p>');
+//     } else {
+//         document.querySelector('.data_update').classList.remove("hidden");
+//         let find_data = product.find(val => val.id === Number(id.value))
+//         console.log(find_data);
+//         newId.value = `${find_data.id}`
+//         newId.disabled = true;
+//         newProduct.value = `${find_data.product_name}`;
+//         newPrice.value = `${find_data.price}`;
+//         find_data.available === 1 ? document.getElementById('aval').checked = true : document.getElementById('not-aval').checked = true;
+
+
+//         const add_data = document.querySelector('.add');
+//         add_data.addEventListener('click', function (e) {
+//             e.preventDefault();
+//             find_data.product_name = newProduct.value;
+//             find_data.price = newPrice.value;
+//             find_data.available = document.getElementById('aval').checked === true ? 1 : 0;
+//             updateUI(find_data);
+//             console.log(find_data);
+//             document.querySelector('.data_update').classList.add("hidden");
+//         })
+
+//         id.value = '';
+//     }
+// })
+
+
 showCart.addEventListener('click', function (e) {
     e.preventDefault();
     row.innerHTML = '';
-    cart.sort((a, b) => a.price - b.price).forEach(val => updateUI(val));
-})
+    cart = cart.filter(val => val.available === 1);
+    cart.forEach(val => updateUI(val));
+    console.log(cart);
+});
 
-btn_update.addEventListener('click', function (e) {
+document.getElementById('cars').addEventListener('change', function (e) {
     e.preventDefault();
-    if (id.value === '') {
-        btn_update.insertAdjacentHTML('afterend', '<p class="err">!Enter Id</p>');
-    } else {
-        document.querySelector('.data_update').classList.remove("hidden");
-        let find_data = product.find(val => val.id === Number(id.value))
-        console.log(find_data);
-        newId.value = `${find_data.id}`
-        newId.disabled = true;
-        newProduct.value = `${find_data.product_name}`;
-        newPrice.value = `${find_data.price}`;
-        find_data.available === 1 ? document.getElementById('aval').checked = true : document.getElementById('not-aval').checked = true;
-
-
-        const add_data = document.querySelector('.add');
-        add_data.addEventListener('click', function (e) {
-            e.preventDefault();
-            find_data.product_name = newProduct.value;
-            find_data.price = newPrice.value;
-            find_data.available = document.getElementById('aval').checked === true ? 1 : 0;
-            updateUI(find_data);
-            console.log(find_data);
-            document.querySelector('.data_update').classList.add("hidden");
-        })
-
-        id.value = '';
-
-
+    console.log(cart);
+    if (this.value === 'id' || this.value === 'price') {
+        row.innerHTML = '';
+        cart.sort((a, b) => a[this.value] - b[this.value]).forEach(val => updateUI(val))
     }
+    else if (this.value === 'productName') {
+        row.innerHTML = '';
+        cart.sort((a, b) => a.product_name > b.product_name ? 1 : -1).forEach(val => updateUI(val));
+    }
+});
+// console.log(cart);
+// document.getElementById('by_id').addEventListener('click', function (e) {
+//     e.preventDefault();
+//     row.innerHTML = '';
+//     cart.sort((a, b) => a.id - b.id).forEach(val => updateUI(val))
+// });
 
+// document.getElementById('by_name').addEventListener('click', function (e) {
+//     e.preventDefault();
+//     row.innerHTML = '';
+//     cart.sort((a, b) => a.product_name > b.product_name ? 1 : -1).forEach(val => updateUI(val));
+// });
 
-
-})
+// document.getElementById('by_price').addEventListener('click', function (e) {
+//     e.preventDefault();
+//     row.innerHTML = '';
+//     cart.sort((a, b) => a.price - b.price).forEach(val => updateUI(val))
+// });
