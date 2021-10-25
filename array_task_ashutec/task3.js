@@ -96,9 +96,7 @@ const btn_update = document.querySelector('.update');
 // const error = document.querySelector('.err');
 //update
 const id = document.getElementById('idForUpdate');
-const newId = document.getElementById('newId')
-const newProduct = document.getElementById('newName');
-const newPrice = document.getElementById('newPrice');
+
 const add = document.querySelector('.add');
 const table = document.querySelectorAll('.table');
 
@@ -106,19 +104,24 @@ let cart = [];
 row.innerHTML = '';
 
 const updateUI = function (product) {
-    const html = ` <tr id="${product.id}">
+    const html = ` <tr class="row_${product.id} ">
         <th scope="row">${product.id}</th>
         <td>${product.product_name}</td>
         <td>${product.price}</td>
         <td>${product.available === 0 ? 'Not-Available' : 'Available'}</td>
         <td><image class="all_images" src=${product.image}></image></td> 
-        <td><button class="update">Update</button></td>
-        <td><button class="delete">Delete</button></td></tr>`
+        <td><button id="${product.id}" value="update" class="update">Update</button></td>
+       
+        <td><button id="${product.id}" value="delete" class="delete">Delete</button></td></tr>
+        `
+
 
     row.insertAdjacentHTML('beforeend', html);
 
 
 }
+
+
 
 
 
@@ -147,27 +150,67 @@ addCart.addEventListener('click', function (e) {
 
 
 
-table.addEventListener('click', function (e) {
+document.querySelector('tbody').addEventListener('click', function (e) {
     e.preventDefault();
-    // row.innerHTML = '';
-    target = e.Target.value;
-    console.log(target);
-    const exist = cart.some(val => val.id === target)
-    if (exist) {
-        const index = cart.findIndex(val => val.id === target)
-        let remove = cart.splice(index, 1);
+    if (e.target.value === "delete") {
 
-        console.log(remove, cart);
-        cart.forEach(val => updateUI(val));
+        target_del = e.target.id;
+        console.log(target_del);
+        const exist = cart.some(val => val.id === Number(target_del))
+        console.log(exist)
+        if (exist) {
+            const index = cart.findIndex(val => val.id === Number(target_del))
+            let remove = cart.splice(index, 1);
 
+            console.log(remove, cart);
+            row.innerHTML = '';
+            cart.forEach(val => updateUI(val));
+
+
+        }
+    }
+
+    else if (e.target.value === "update") {
+
+        console.log(`update pressed at ${e.target.id}`);
+        const target_row = e.target.closest('tr');
+        const newRow = `<tr  class="data_update">
+        <td><input type="text"  id="newId" ></td>
+        <td><input type="text" id="newName" ></td>
+        <td><input type="number" id="newPrice" ></td>
+        <form><td><input type="radio"  id="aval" value="Available">
+        <label>Available</label>  
+        <input type="radio"  id="not-aval" value="not-Available">
+        <label>Not-Available</label> </td></form>
+        <td> <button class="add">update data</button> </td>
+        </tr>`
+        target_row.insertAdjacentHTML('afterend', newRow);
+        const newId = document.getElementById('newId')
+        const newProduct = document.getElementById('newName');
+        const newPrice = document.getElementById('newPrice');
+        const target_update = e.target.id;
+        let find_data = product.find(val => val.id === Number(target_update))
+        console.log(find_data);
+        newId.value = `${find_data.id}`
+        newId.disabled = true;
+        newProduct.value = `${find_data.product_name}`;
+        newPrice.value = `${find_data.price}`;
+        find_data.available === 1 ? document.getElementById('aval').checked = true : document.getElementById('not-aval').checked = true;
+
+        document.querySelector('.add').addEventListener('click', function (e) {
+            e.preventDefault();
+            let find_data = product.find(val => val.id === Number(target_update))
+            find_data.product_name = newProduct.value;
+            find_data.price = Number(newPrice.value);
+            find_data.available = document.getElementById('aval').checked === true ? 1 : 0;
+            document.querySelector('.data_update').classList.add("hidden");
+            target_row.remove();
+            updateUI(find_data);
+            console.log(find_data);
+        })
 
     }
-    // else {
-    //     btn_delete.insertAdjacentHTML('afterend', '<p class="err">you does not choose this product yet! </p>');
 
-    //     cart.forEach(val => updateUI(val));
-    // }
-    // delInput.value = '';
 })
 getDiscount.addEventListener('click', function (e) {
     e.preventDefault();
@@ -230,7 +273,7 @@ showCart.addEventListener('click', function (e) {
     console.log(cart);
 });
 
-document.getElementById('cars').addEventListener('change', function (e) {
+document.getElementById('available').addEventListener('change', function (e) {
     e.preventDefault();
     console.log(cart);
     if (this.value === 'id' || this.value === 'price') {

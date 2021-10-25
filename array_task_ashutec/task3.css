@@ -24,7 +24,7 @@ input, button,select{
     padding: 0 20px;
 }
 table{
-    margin: 0 auto;
+    margin-top: 2rem;
     border: 1px solid  black;
 }
 td{
@@ -60,15 +60,15 @@ td{
 .hide_err{
     display:none;
 }
-.data_update{
+/* .data_update{
     display:flex;
     padding:2rem;
     justify-content: center;
     align-items: center;
     gap:1rem
-}
+} */
 .hidden{
-    visibility: hidden;
+    display:none;
 }
 .manage_btns{
     display: flex;
