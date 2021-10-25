@@ -8,7 +8,7 @@ body{
     background-repeat: no-repeat;
    
 }
-form{
+.main{
     height:max-content;
     width:40%;
     margin:0 auto;
@@ -60,13 +60,35 @@ td{
 .hide_err{
     display:none;
 }
-/* .data_update{
+.pop-up{
+    /* padding:5rem; */
+    border:2px solid darkgrey;
+    width: 40%;
+    margin: auto;
+    background-color: #f5f4f2;
+}
+.pop-up h2{
+    padding-top: 2px;
+    text-align: center;
+    color:#484a49;
+}
+.data_update{
     display:flex;
+    flex-direction: column;
     padding:2rem;
-    justify-content: center;
+    justify-content:space-between;
     align-items: center;
-    gap:1rem
-} */
+
+  
+}
+.pop-up_table{
+    margin: auto;
+    border: none;
+
+}
+.openmodel{
+    overflow:hidden;
+}
 .hidden{
     display:none;
 }

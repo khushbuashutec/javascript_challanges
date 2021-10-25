@@ -17,7 +17,7 @@ const product = [
     },
     {
         id: 3,
-        product_name: 'TV',
+        product_name: 'tv',
         price: 30000,
         rating: 4.7,
         available: 0,
@@ -25,7 +25,7 @@ const product = [
     },
     {
         id: 4,
-        product_name: 'CPU',
+        product_name: 'cpu',
         price: 4000,
         rating: 5,
         available: 0,
@@ -93,6 +93,7 @@ const display_discount = document.querySelector('.btn_discount');
 const show_price = document.querySelector('.btn_price');
 const total_price = document.querySelector('.btn_total');
 const btn_update = document.querySelector('.update');
+
 // const error = document.querySelector('.err');
 //update
 const id = document.getElementById('idForUpdate');
@@ -126,7 +127,6 @@ const updateUI = function (product) {
 
 
 
-
 addCart.addEventListener('click', function (e) {
     e.preventDefault();
     console.log(cart);
@@ -148,49 +148,47 @@ addCart.addEventListener('click', function (e) {
     console.log(cart);
 });
 
+// btn_delete.addEventListener('click', function (e) {
+//     console.log(e);
+// })
 
 
 document.querySelector('tbody').addEventListener('click', function (e) {
     e.preventDefault();
     if (e.target.value === "delete") {
-
-        target_del = e.target.id;
-        console.log(target_del);
-        const exist = cart.some(val => val.id === Number(target_del))
-        console.log(exist)
+        const exist = cart.some(val => val.id === Number(e.target.id))
         if (exist) {
-            const index = cart.findIndex(val => val.id === Number(target_del))
-            let remove = cart.splice(index, 1);
-
-            console.log(remove, cart);
+            const index = cart.findIndex(val => val.id === Number(e.target.id))
+            cart.splice(index, 1);
             row.innerHTML = '';
             cart.forEach(val => updateUI(val));
-
-
         }
     }
 
     else if (e.target.value === "update") {
 
         console.log(`update pressed at ${e.target.id}`);
+        document.querySelector('.pop-up').classList.remove("hidden");
+        //     const newRow = `<tr class="data_update">   
+        //     <form method="post">     
+        //    <td> <input type="text"  id="newId" ></td>
+        //    <td> <input type="text" id="newName" ></td>
+        //    <td><input type="number" id="newPrice" ></td>
+        //    <td><div><input type="radio" name="availability" id="aval" value="Available" />
+        //     <label>Available</label> </div></td>
+        //      <td><div><input type="radio" name="availability" id="not-aval" value="not-Available" />
+        //     <label>Not-Available</label></div></td> 
+        //     <td> <button class="add">update data</button> </td>
+        //     </form>
+        //          </tr>`
+
         const target_row = e.target.closest('tr');
-        const newRow = `<tr  class="data_update">
-        <td><input type="text"  id="newId" ></td>
-        <td><input type="text" id="newName" ></td>
-        <td><input type="number" id="newPrice" ></td>
-        <form><td><input type="radio"  id="aval" value="Available">
-        <label>Available</label>  
-        <input type="radio"  id="not-aval" value="not-Available">
-        <label>Not-Available</label> </td></form>
-        <td> <button class="add">update data</button> </td>
-        </tr>`
-        target_row.insertAdjacentHTML('afterend', newRow);
+        // target_row.insertAdjacentHTML('afterend', newRow);
         const newId = document.getElementById('newId')
         const newProduct = document.getElementById('newName');
         const newPrice = document.getElementById('newPrice');
         const target_update = e.target.id;
         let find_data = product.find(val => val.id === Number(target_update))
-        console.log(find_data);
         newId.value = `${find_data.id}`
         newId.disabled = true;
         newProduct.value = `${find_data.product_name}`;
@@ -199,11 +197,13 @@ document.querySelector('tbody').addEventListener('click', function (e) {
 
         document.querySelector('.add').addEventListener('click', function (e) {
             e.preventDefault();
-            let find_data = product.find(val => val.id === Number(target_update))
+            // let find_data = product.find(val => val.id === Number(target_update))
+
             find_data.product_name = newProduct.value;
             find_data.price = Number(newPrice.value);
             find_data.available = document.getElementById('aval').checked === true ? 1 : 0;
-            document.querySelector('.data_update').classList.add("hidden");
+            document.querySelector('.pop-up').classList.add("hidden");
+            console.log(target_row);
             target_row.remove();
             updateUI(find_data);
             console.log(find_data);
@@ -212,6 +212,7 @@ document.querySelector('tbody').addEventListener('click', function (e) {
     }
 
 })
+
 getDiscount.addEventListener('click', function (e) {
     e.preventDefault();
     row.innerHTML = '';
